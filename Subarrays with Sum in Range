@@ -1,0 +1,50 @@
+class Solution {
+public:
+    long long mergeSort(vector<long long>& prefix, int left, int right, int l, int r) {
+        if (right - left <= 1)
+            return 0;
+
+        int mid = (left + right) / 2;
+
+        long long cnt = 0;
+
+        cnt += mergeSort(prefix, left, mid, l, r);
+        cnt += mergeSort(prefix, mid, right, l, r);
+
+        int low = mid, high = mid;
+
+        for (int i = left; i < mid; i++) {
+
+            while (low < right && prefix[low] - prefix[i] < l)
+                low++;
+
+            while (high < right && prefix[high] - prefix[i] <= r)
+                high++;
+
+            cnt += (high - low);
+        }
+
+        inplace_merge(prefix.begin() + left,
+                      prefix.begin() + mid,
+                      prefix.begin() + right);
+
+        return cnt;
+    }
+
+    int countSubarray(vector<int>& arr, int l, int r) {
+
+        int n = arr.size();
+
+        vector<long long> prefix(n + 1, 0);
+
+        for (int i = 0; i < n; i++)
+            prefix[i + 1] = prefix[i] + arr[i];
+
+        return mergeSort(prefix, 0, n + 1, l, r);
+    }
+};
+
+
+Input: l = 3, r = 8, arr[] = [1, 4, 6]
+Output: 3
+Explanation: The subarrays are [1,4], [4] and [6]. Therefore answer for this test case is 3.
