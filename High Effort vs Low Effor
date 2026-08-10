@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxTask(vector<int>& h, vector<int>& l) {
+        int n = h.size();
+
+        vector<int> dp(n + 1, 0);
+
+        dp[1] = max(h[0], l[0]);
+
+        for (int i = 2; i <= n; i++) {
+            int low = dp[i - 1] + l[i - 1];
+            int high = dp[i - 2] + h[i - 1];
+
+            dp[i] = max(low, high);
+        }
+
+        return dp[n];
+    }
+};
+
+Input: h[] = [2, 8, 1], l[] = [1, 2, 1]
+Output: 9
+Explanation: Pick the high-effort task on day 1 and the low-effort task on day 2. Total = 8 + 1 = 9.
