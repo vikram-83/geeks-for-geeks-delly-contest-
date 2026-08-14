@@ -1,0 +1,54 @@
+class Solution {
+  public:
+    bool isPossible(vector<int>& arr, int s, int x) {
+
+        // Empty subset can always make 0
+        if (x == 0)
+            return true;
+
+        vector<long long> nums;
+
+        long long sum = s;
+
+        // Initial number written on paper
+        if (s <= x)
+            nums.push_back(s);
+        else
+            return false;
+
+        // Generate sequence
+        for (int a : arr) {
+
+            long long newNum = sum + a;
+
+            // Since all future numbers will be even larger,
+            // we can stop here.
+            if (newNum > x)
+                break;
+
+            nums.push_back(newNum);
+
+            sum += newNum;
+        }
+
+        // Greedy: largest to smallest
+        long long remaining = x;
+
+        for (int i = nums.size() - 1; i >= 0; i--) {
+
+            if (nums[i] <= remaining) {
+                remaining -= nums[i];
+            }
+
+            if (remaining == 0)
+                return true;
+        }
+
+        return false;
+    }
+
+Input: arr[] = [1, 2, 4, 2], s = 1, x = 7
+Output: true
+Explanation: The first student gets 1 on paper and writes 2. The second student gets [1, 2] and writes 5. The third student gets [1, 2, 5] and writes 12. The final sequence of numbers on the paper is 1, 2, 5, 12, 22. Using 2 and 5 we can form 7. 
+
+};
