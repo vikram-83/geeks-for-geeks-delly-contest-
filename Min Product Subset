@@ -1,0 +1,76 @@
+Input: arr[] = [1, 2, 3]
+Output: 1
+Explanation: The possible subset products are 1, 2, 3, 2, 3, 6, and 6. The minimum product is 1, obtained by selecting the subset [1].
+
+
+class Solution {
+  public:
+    int minProd(vector<int>& arr) {
+
+        int negativeCount = 0;
+        int zeroCount = 0;
+
+        int maxNegative = INT_MIN;
+        int minPositive = INT_MAX;
+
+        long long product = 1;
+
+        for (int x : arr) {
+
+            if (x == 0) {
+                zeroCount++;
+            }
+            else if (x < 0) {
+                negativeCount++;
+                product *= x;
+
+                // Negative number closest to zero
+                maxNegative = max(maxNegative, x);
+            }
+            else {
+                // Smallest positive number
+                minPositive = min(minPositive, x);
+            }
+        }
+
+        // No negative numbers
+        if (negativeCount == 0) {
+
+            // If zero exists, zero is minimum
+            if (zeroCount > 0)
+                return 0;
+
+            // All elements are positive
+            return minPositive;
+        }
+
+        // Odd number of negative numbers
+        if (negativeCount % 2 == 1) {
+
+            // Include all positive numbers > 1
+            for (int x : arr) {
+                if (x > 1)
+                    product *= x;
+            }
+
+            return product;
+        }
+
+        // Even number of negative numbers
+        // Remove negative number closest to zero
+        product /= maxNegative;
+
+        // Include positive numbers > 1
+        for (int x : arr) {
+            if (x > 1)
+                product *= x;
+        }
+
+        // If result is positive and zero exists,
+        // zero is smaller
+        if (zeroCount > 0 && product > 0)
+            return 0;
+
+        return product;
+    }
+};
