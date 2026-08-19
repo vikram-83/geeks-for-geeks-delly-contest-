@@ -1,0 +1,46 @@
+Given an array arr[]  and a range from l to r, the task is to count the number of triplets having a sum in the range [l, r].
+
+Examples :
+
+Input: arr = [8, 3, 5, 2], l = 7, r = 11
+Output: 1
+Explanation: There is only one triplet [2, 3, 5] having sum 10 in range [7, 11].
+
+
+
+class Solution {
+  public:
+
+    long long countLessEqual(vector<int>& arr, int x) {
+        int n = arr.size();
+        long long count = 0;
+
+        int i = 0;
+        while (i < n - 2) {
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                long long sum = 1LL * arr[i] + arr[left] + arr[right];
+
+                if (sum <= x) {
+                    count += (right - left);
+                    left++;
+                } 
+                else {
+                    right--;
+                }
+            }
+
+            i++;
+        }
+
+        return count;
+    }
+
+    int countTriplets(vector<int> &arr, int l, int r) {
+        sort(arr.begin(), arr.end());
+
+        return countLessEqual(arr, r) - countLessEqual(arr, l - 1);
+    }
+};
