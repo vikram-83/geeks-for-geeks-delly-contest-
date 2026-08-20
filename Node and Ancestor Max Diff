@@ -1,0 +1,36 @@
+class Solution {
+  public:
+
+    int ans = INT_MIN;
+
+    int findMin(Node* root) {
+        if (root == nullptr)
+            return INT_MAX;
+
+        // Leaf node
+        if (root->left == nullptr && root->right == nullptr)
+            return root->data;
+
+        int leftMin = findMin(root->left);
+        int rightMin = findMin(root->right);
+
+        int minDescendant = min(leftMin, rightMin);
+
+        // Current node - minimum descendant
+        ans = max(ans, root->data - minDescendant);
+
+        // Return minimum value in this subtree
+        return min(root->data, minDescendant);
+    }
+
+    int maxDiff(Node* root) {
+        findMin(root);
+        return ans;
+    }
+};
+
+
+Input: root[] = [5, 2, 1] 
+
+Output: 4
+Explanation: The maximum difference we can get is 4, which is between 5 and 1.
