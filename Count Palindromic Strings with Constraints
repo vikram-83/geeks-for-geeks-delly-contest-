@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int palindromicStrings(int n, int k) {
+        const long long MOD = 1000000007;
+        long long ans = 0;
+        long long perm = 1;
+
+        for (int m = 0; m <= k; m++) {
+
+            if (m > 0) {
+                perm = perm * (k - m + 1) % MOD;
+            }
+
+            // Even length = 2*m
+            if (m > 0 && 2 * m <= n) {
+                ans = (ans + perm) % MOD;
+            }
+
+            // Odd length = 2*m + 1
+            // Middle character must be different from paired characters
+            if (2 * m + 1 <= n && m < k) {
+                long long ways = perm * (k - m) % MOD;
+                ans = (ans + ways) % MOD;
+            }
+        }
+
+        return ans;
+    }
+};
+
+
+Input: n = 3, k = 2
+Output: 6
+Explanation: The possible strings are: "a", "b", "aa", "bb", "aba", "bab".
+Input: n = 4, k = 3
+Output: 18
+Explanation: The possible strings are:"a", "b", "c", "aa", "bb", "cc", "aba", "aca", "bab", "bcb", "cac", "cbc", "abba", "acca", "baab", "bccb", "caac", "cbbc". 
