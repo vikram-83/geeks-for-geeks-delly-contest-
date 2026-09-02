@@ -1,0 +1,44 @@
+Input: n = 3, s = "GACCBDDBAGEE"
+Output: 1
+Explanation: Only D will not be able to get any computer. So the answer is 1.
+
+
+
+class Solution {
+  public:
+    int solve(int n, string s) {
+        vector<int> state(26, 0);
+        // 0 = not arrived
+        // 1 = has computer
+        // 2 = rejected
+
+        int available = n;
+        int rejected = 0;
+
+        for (char c : s) {
+            int id = c - 'A';
+
+            if (state[id] == 0) {
+                // Customer arrives
+                if (available > 0) {
+                    state[id] = 1;
+                    available--;
+                } else {
+                    state[id] = 2;
+                    rejected++;
+                }
+            }
+            else if (state[id] == 1) {
+                // Customer leaves
+                state[id] = 0;
+                available++;
+            }
+            else {
+                // Rejected customer's departure
+                state[id] = 0;
+            }
+        }
+
+        return rejected;
+    }
+};
