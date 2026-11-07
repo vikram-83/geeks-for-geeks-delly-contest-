@@ -1,0 +1,31 @@
+
+class Solution {
+public:
+    int firstOccurence(string& txt, string& pat) {
+        
+        int n = txt.length();
+        int m = pat.length();
+
+        // Check every possible starting index
+        for (int i = 0; i <= n - m; i++) {
+            
+            int j = 0;
+
+            // Compare characters
+            while (j < m && txt[i + j] == pat[j]) {
+                j++;
+            }
+
+            // If all characters match
+            if (j == m) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+};
+
+
+txt = "GeeksForGeeks"
+pat = "For"
