@@ -1,6 +1,6 @@
 # 🚀 GeeksforGeeks Daily Coding Challenge
 
-Welcome to my **GeeksforGeeks Daily Coding Challenge** repository.
+Welcome to my **GeeksforGeeks Daily Coding Challenge** repository
 
 I solve **DSA problems daily on GeeksforGeeks** to improve my problem-solving skills, strengthen core data structures and algorithms, and prepare for coding interviews.
 
