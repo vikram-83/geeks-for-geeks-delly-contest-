@@ -1,0 +1,29 @@
+
+class Solution {
+public:
+    int minDiff(Node *root, int k) {
+
+        int ans = INT_MAX;
+
+        while (root != nullptr) {
+
+            ans = min(ans, abs(root->data - k));
+
+            if (ans == 0)
+                return 0;
+
+            if (k < root->data) {
+                root = root->left;
+            }
+            else {
+                root = root->right;
+            }
+        }
+
+        return ans;
+    }
+};
+Input: root = [10, 2, 11, 1, 5, N, N, N, N, 3, 6, N, 4], k = 13
+
+Output: 2
+Explanation: The node with value 11 is closest to k = 13. So, the minimum absolute difference is |11 - 13| = 2.
