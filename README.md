@@ -1,4 +1,4 @@
-# 🚀 GeeksforGeeks Daily Coding Challenge
+# 🚀 GeeksforGeeks Daily Coding Challeng
 
 Welcome to my **GeeksforGeeks Daily Coding Challenge** repository
 
