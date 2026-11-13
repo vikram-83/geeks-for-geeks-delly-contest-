@@ -1,0 +1,54 @@
+class Solution {
+  public:
+    vector<int> findCommon(Node* r1, Node* r2) {
+        vector<int> ans;
+        stack<Node*> s1, s2;
+
+        while (true) {
+            // 1. Push all left children of r1 onto s1
+            while (r1 != nullptr) {
+                s1.push(r1);
+                r1 = r1->left;
+            }
+
+            // 2. Push all left children of r2 onto s2
+            while (r2 != nullptr) {
+                s2.push(r2);
+                r2 = r2->left;
+            }
+
+            // 3. Stop when either tree is completely traversed
+            if (s1.empty() || s2.empty()) {
+                break;
+            }
+
+            Node* top1 = s1.top();
+            Node* top2 = s2.top();
+
+            // 4. Compare current smallest unvisited nodes
+            if (top1->data == top2->data) {
+                ans.push_back(top1->data);
+                s1.pop();
+                s2.pop();
+                r1 = top1->right;
+                r2 = top2->right;
+            } else if (top1->data < top2->data) {
+                s1.pop();
+                r1 = top1->right;
+            } else {
+                s2.pop();
+                r2 = top2->right;
+            }
+        }
+
+        return ans;
+    }
+};
+
+
+
+
+Input: r1 = [5, 1, 10, 0, 4, 7, N, N, N, N, N, N, 9], r2 = [10, 7, 20, 4, 9, N, N]  
+
+Output: [4, 7, 9, 10]
+Explanation: The values present in both BSTs are 4, 7, 9, and 10. Hence, the answer is [4, 7, 9, 10].
