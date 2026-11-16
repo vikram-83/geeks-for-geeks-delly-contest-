@@ -1,0 +1,31 @@
+
+class Solution {
+  public:
+    int findKthSmall(vector<int>& arr, int k) {
+
+        sort(arr.begin(), arr.end());
+
+        int low = 0;
+        int high = arr.size() - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            int missing = arr[mid] - (mid + 1);
+
+            if (missing < k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return low + k;
+    }
+};
+
+
+Input: arr[] = [1, 9, 5, 2], k = 6
+Output: 10
+Explanation: After removing [1, 2, 5, 9] from the natural numbers, the remaining sequence is: 3, 4, 6, 7, 8, 10, 11, .... and so on. The 6th number in this sequence is 10, so the answer is 10.
