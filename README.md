@@ -7,7 +7,7 @@ I solve **DSA problems daily on GeeksforGeeks** to improve my problem-solving sk
 ## 🎯 Goals
 
 * Solve DSA problems consistently every day
-* Improve logical and problem-solving skills
+* Improve logical and problem-solving skill
 * Learn optimized solutions
 * Strengthen C++ programming
 * Prepare for coding interviews and online assessments
