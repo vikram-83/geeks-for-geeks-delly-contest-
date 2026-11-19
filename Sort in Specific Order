@@ -1,0 +1,27 @@
+
+class Solution {
+public:
+    void sortIt(vector<int>& arr) {
+
+        sort(arr.begin(), arr.end(), [](int a, int b) {
+
+            // Odd numbers come before even numbers
+            if (a % 2 != b % 2) {
+                return a % 2 > b % 2;
+            }
+
+            // Odd numbers in descending order
+            if (a % 2 == 1) {
+                return a > b;
+            }
+
+            // Even numbers in ascending order
+            return a < b;
+        });
+    }
+};
+
+
+Input: arr[] = [1, 2, 3, 5, 4, 7, 10]
+Output: [7, 5, 3, 1, 2, 4, 10]
+Explanation: 7, 5, 3, 1 are odd numbers in descending order and 2, 4, 10 are even numbers in ascending order.
